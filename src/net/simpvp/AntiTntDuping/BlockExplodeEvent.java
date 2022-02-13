@@ -28,7 +28,7 @@ public class BlockExplodeEvent implements Listener{
 					}
 				}
 			}
-			blockList.remove(tntId);
+			PistonExtendEvent.tntIds.remove(tntId);
 		}
 	}
 }
