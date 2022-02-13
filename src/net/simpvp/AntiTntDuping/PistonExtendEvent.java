@@ -1,8 +1,13 @@
 package net.simpvp.AntiTntDuping;
 
+import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,6 +20,7 @@ public class PistonExtendEvent implements Listener {
 	private int maxX;
 	private int maxZ;
 	
+	public static ArrayList<Integer> tntIds = new ArrayList<Integer>();
 	
 	public PistonExtendEvent(AntiTntDuping instance) {
 		minX = instance.getConfig().getInt("minX");
@@ -25,13 +31,26 @@ public class PistonExtendEvent implements Listener {
 	
 	
 	@EventHandler(priority = EventPriority.NORMAL,ignoreCancelled=true)
-	public void onPlayerDeath(BlockPistonExtendEvent event) {
+	public void onPistonExtend(BlockPistonExtendEvent event) {
 		for (Block block : event.getBlocks().toArray(new Block[0])) {
-            		if (block.getType().equals(Material.TNT) && !isNearSpawn(block.getLocation())) {
-                	block.setType(Material.AIR);
-               		return;
+            if (block.getType().equals(Material.TNT)) {
+            	
+            	if (!isNearSpawn(block.getLocation())) {
+            		block.setType(Material.AIR);
+            		return;
+            	}
+            	
+            	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(AntiTntDuping.instance, new Runnable() {
+            		public void run() {
+            			for (Entity entity : block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 10, 10, 10)) {
+                    		if (entity.getType().equals(EntityType.PRIMED_TNT)) {
+                    			tntIds.add(entity.getEntityId());
+                    		}
+                    	}
             		}
-        	}
+            	}, (long) .1);	
+            }
+        }
 	}
 	
 	
