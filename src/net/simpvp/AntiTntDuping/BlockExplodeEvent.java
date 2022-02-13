@@ -11,8 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class BlockExplodeEvent implements Listener{
-	
-	private String breakable = "COBBLESTONE";
 
 	@EventHandler(priority = EventPriority.NORMAL,ignoreCancelled=true)
 	public void onBlockExplode(EntityExplodeEvent event) {
@@ -23,7 +21,7 @@ public class BlockExplodeEvent implements Listener{
 				Iterator<?> it = blockList.iterator();
 				while(it.hasNext()) {
 					Block block = (Block)it.next();
-					if (!(block.getType().toString().equals(breakable))) {
+					if (!(block.getType().toString().equals("COBBLESTONE"))) {
 						it.remove();
 					}
 				}
