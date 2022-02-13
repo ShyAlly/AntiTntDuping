@@ -17,7 +17,7 @@ public class BlockExplodeEvent implements Listener{
 		if (event.getEntityType() == EntityType.PRIMED_TNT) {
 			List<Block> blockList = event.blockList();
 			int tntId = event.getEntity().getEntityId();
-			if (PistonExtendEvent.tntIds.contains(tntId) && blockList.size() > 0) {
+			if (PistonExtendEvent.tntIds.remove((Object)tntId) && blockList.size() > 0) {
 				Iterator<?> it = blockList.iterator();
 				while(it.hasNext()) {
 					Block block = (Block)it.next();
@@ -26,7 +26,6 @@ public class BlockExplodeEvent implements Listener{
 					}
 				}
 			}
-			PistonExtendEvent.tntIds.remove(tntId);
 		}
 	}
 }
