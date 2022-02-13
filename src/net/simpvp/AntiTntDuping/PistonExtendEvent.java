@@ -27,11 +27,11 @@ public class PistonExtendEvent implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL,ignoreCancelled=true)
 	public void onPlayerDeath(BlockPistonExtendEvent event) {
 		for (Block block : event.getBlocks().toArray(new Block[0])) {
-            if (block.getType().equals(Material.TNT) && !isNearSpawn(block.getLocation())) {
-                block.setType(Material.AIR);
-                return;
-            }
-        }
+            		if (block.getType().equals(Material.TNT) && !isNearSpawn(block.getLocation())) {
+                	block.setType(Material.AIR);
+               		return;
+            		}
+        	}
 	}
 	
 	
