@@ -1,6 +1,6 @@
 package net.simpvp.AntiTntDuping;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -48,7 +48,7 @@ public class PistonExtendEvent implements Listener {
                     		}
                     	}
             		}
-            	}, (long) .1);	
+            	}, 0);	
             }
         }
 	}
