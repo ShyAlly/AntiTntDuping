@@ -42,7 +42,7 @@ public class PistonExtendEvent implements Listener {
             	
             	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(AntiTntDuping.instance, new Runnable() {
             		public void run() {
-            			for (Entity entity : block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 10, 10, 10)) {
+            			for (Entity entity : block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 3, 3, 3)) {
                     		if (entity.getType().equals(EntityType.PRIMED_TNT)) {
                     			tntIds.add(entity.getEntityId());
                     		}
