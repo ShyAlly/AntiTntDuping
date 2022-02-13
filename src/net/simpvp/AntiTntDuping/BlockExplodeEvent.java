@@ -1,0 +1,34 @@
+package net.simpvp.AntiTntDuping;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityExplodeEvent;
+
+public class BlockExplodeEvent implements Listener{
+	
+	private String breakable = "COBBLESTONE";
+
+	@EventHandler(priority = EventPriority.NORMAL,ignoreCancelled=true)
+	public void onBlockExplode(EntityExplodeEvent event) {
+		if (event.getEntityType() == EntityType.PRIMED_TNT) {
+			List<Block> blockList = event.blockList();
+			int tntId = event.getEntity().getEntityId();
+			if (PistonExtendEvent.tntIds.contains(tntId) && blockList.size() > 0) {
+				Iterator<?> it = blockList.iterator();
+				while(it.hasNext()) {
+					Block block = (Block)it.next();
+					if (!(block.getType().toString().equals(breakable))) {
+						it.remove();
+					}
+				}
+			}
+			blockList.remove(tntId);
+		}
+	}
+}
