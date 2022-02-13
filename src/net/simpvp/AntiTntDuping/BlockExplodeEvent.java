@@ -21,11 +21,21 @@ public class BlockExplodeEvent implements Listener{
 				Iterator<?> it = blockList.iterator();
 				while(it.hasNext()) {
 					Block block = (Block)it.next();
-					if (!(block.getType().toString().equals("COBBLESTONE"))) {
+					if (!(block.getType().toString().equals("COBBLESTONE")) && !isValidStoneBlock(block)) {
 						it.remove();
 					}
 				}
 			}
 		}
 	}
+	
+	/* Return true if a block is stone and is above y=62 */
+	public Boolean isValidStoneBlock(Block block) {
+		
+		if (block.getType().toString().equals("STONE") && block.getY() >= 63) {
+			return true;
+		}
+		return false;
+	}
+	
 }
