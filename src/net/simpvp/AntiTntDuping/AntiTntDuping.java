@@ -16,5 +16,6 @@ public class AntiTntDuping extends JavaPlugin {
 		this.saveConfig();
 		
 		getServer().getPluginManager().registerEvents(new PistonExtendEvent(instance), this);
+		getServer().getPluginManager().registerEvents(new BlockExplodeEvent(), this);
 	}
 }
