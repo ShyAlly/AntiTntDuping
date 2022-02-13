@@ -20,7 +20,7 @@ public class PistonExtendEvent implements Listener {
 	private int maxX;
 	private int maxZ;
 	
-	public static ArrayList<Integer> tntIds = new ArrayList<Integer>();
+	public static HashSet<Integer> tntIds = new HashSet<Integer>();
 	
 	public PistonExtendEvent(AntiTntDuping instance) {
 		minX = instance.getConfig().getInt("minX");
