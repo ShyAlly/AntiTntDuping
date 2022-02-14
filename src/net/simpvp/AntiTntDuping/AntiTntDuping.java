@@ -13,7 +13,7 @@ public class AntiTntDuping extends JavaPlugin {
 	
 	public void onEnable() {
 		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
+		this.saveDefaultConfig();
 		
 		getServer().getPluginManager().registerEvents(new PistonRetractEvent(instance), this);
 		getServer().getPluginManager().registerEvents(new PistonExtendEvent(instance), this);
