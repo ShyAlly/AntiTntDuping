@@ -3,4 +3,3 @@ main: net.simpvp.AntiTntDuping.AntiTntDuping
 version: 1
 author: MoWobbler
 description: Allow tnt duping at spawn, but nowhere else
-commands:

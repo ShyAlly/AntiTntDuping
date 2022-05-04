@@ -1,0 +1,5 @@
+minX: -1000
+minZ: -1000
+maxX: 1000
+maxZ: 1000
+worlds: ["world","world_nether","world_the_end"]
