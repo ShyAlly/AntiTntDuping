@@ -3,6 +3,7 @@ package net.simpvp.AntiTntDuping;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -29,8 +30,12 @@ public class BlockExplodeEvent implements Listener{
 		}
 	}
 
-	/* Return true if a block is stone and is above y=62 */
+	/* Return true if a block is stone and is above y=62, or it is in the end */
 	public Boolean isValidStoneBlock(Block block) {
+
+		if (block.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
+			return true;
+		}
 
 		return block.getType().toString().equals("STONE") && block.getY() >= 63;
 	}
