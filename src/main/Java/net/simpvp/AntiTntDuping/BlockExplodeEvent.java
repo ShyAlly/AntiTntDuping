@@ -33,7 +33,7 @@ public class BlockExplodeEvent implements Listener{
 	/* Return true if a block is stone and is above y=62, or it is in the end */
 	public Boolean isValidStoneBlock(Block block) {
 
-		if (block.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
+		if (block.getWorld().getEnvironment().equals(World.Environment.THE_END) && block.getType().toString().equals("STONE")) {
 			return true;
 		}
 
