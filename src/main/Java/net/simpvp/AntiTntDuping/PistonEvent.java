@@ -25,7 +25,7 @@ public class PistonEvent implements Listener {
     private final int maxX;
     private final int maxZ;
 
-    public static HashSet<Integer> tntIds = new HashSet<Integer>();
+    public static HashSet<Integer> tntIds = new HashSet<>();
 
     public PistonEvent(AntiTntDuping instance) {
         listOfWorlds = instance.getConfig().getList("worlds");
@@ -57,10 +57,7 @@ public class PistonEvent implements Listener {
         if (loc.getBlockX() < minX || loc.getBlockX() > maxX) {
             return false;
         }
-        if (loc.getBlockZ() < minZ || loc.getBlockZ() > maxZ) {
-            return false;
-        }
-        return true;
+        return loc.getBlockZ() >= minZ && loc.getBlockZ() <= maxZ;
     }
 
 
@@ -77,6 +74,7 @@ public class PistonEvent implements Listener {
                     for (Entity entity : Objects.requireNonNull(block.getLocation().getWorld()).getNearbyEntities(block.getLocation(), 3, 3, 3)) {
                         if (entity.getType().equals(EntityType.PRIMED_TNT)) {
                             tntIds.add(entity.getEntityId());
+                            entity.setPersistent(false);
                         }
                     }
                 }, 0);
