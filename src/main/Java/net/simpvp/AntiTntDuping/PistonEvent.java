@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class PistonEvent implements Listener {
 
-
     public static List<?> listOfWorlds;
     private final int minX;
     private final int minZ;
@@ -47,9 +46,6 @@ public class PistonEvent implements Listener {
         manageTntDupers(blocks);
     }
 
-
-
-    /* Return true if location is near spawn */
     public boolean isNearSpawn(Location loc) {
         if (!listOfWorlds.contains(Objects.requireNonNull(loc.getWorld()).getName())) {
             return false;
@@ -66,18 +62,19 @@ public class PistonEvent implements Listener {
             if (block.getType().equals(Material.TNT)) {
 
                 if (!isNearSpawn(block.getLocation())) {
-                    block.setType(Material.AIR);
                     return;
                 }
 
-                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(AntiTntDuping.instance, () -> {
-                    for (Entity entity : Objects.requireNonNull(block.getLocation().getWorld()).getNearbyEntities(block.getLocation(), 3, 3, 3)) {
-                        if (entity.getType().equals(EntityType.PRIMED_TNT)) {
+                Location location = block.getLocation();
+
+                Bukkit.getServer().getRegionScheduler().run(AntiTntDuping.instance, location, (task) -> {
+                    for (Entity entity : Objects.requireNonNull(location.getWorld()).getNearbyEntities(block.getLocation(), 3, 3, 3)) {
+                        if (entity.getType().equals(EntityType.TNT)) {
                             tntIds.add(entity.getEntityId());
                             entity.setPersistent(false);
                         }
                     }
-                }, 0);
+                });
             }
         }
     }

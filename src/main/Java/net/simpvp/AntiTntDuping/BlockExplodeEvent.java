@@ -15,16 +15,19 @@ public class BlockExplodeEvent implements Listener{
 
 	@EventHandler(priority = EventPriority.NORMAL,ignoreCancelled=true)
 	public void onBlockExplode(EntityExplodeEvent event) {
-		if (event.getEntityType() == EntityType.PRIMED_TNT) {
-			List<Block> blockList = event.blockList();
-			int tntId = event.getEntity().getEntityId();
-			if (PistonEvent.tntIds.remove(tntId)) {
-				Iterator<?> it = blockList.iterator();
-				while(it.hasNext()) {
-					Block block = (Block)it.next();
-					if (!(block.getType().toString().equals("COBBLESTONE")) && !isValidStoneBlock(block)) {
-						it.remove();
-					}
+		if (event.getEntityType() != EntityType.TNT) {
+			return;
+		}
+
+		List<Block> blockList = event.blockList();
+		int tntId = event.getEntity().getEntityId();
+
+		if (PistonEvent.tntIds.remove(tntId)) {
+			Iterator<?> it = blockList.iterator();
+			while(it.hasNext()) {
+				Block block = (Block)it.next();
+				if (!(block.getType().toString().equals("COBBLESTONE")) && !isValidStoneBlock(block)) {
+					it.remove();
 				}
 			}
 		}
